@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  item-app:
+    # setting nama container untuk item-app
+    container_name: item-app
+    # setting base image container
+    image: mhakim/item-app:v1
+    # restart policy (selalu restart jika berhenti)
+    restart: always
+    # mapping port ke host
+    ports:
+      - 80:8080
+    # wait item-db container finish to run
+    depends_on:
+      - item-db
+
+  item-db:
+    # setting nama container untuk item-db
+    container_name: item-db
+    # setting base image container
+    image: mongo:3
+    # restart policy (selalu restart jika berhenti)
+    restart: always
+    # volume storage database
+    volumes:
+      - app-db:/data/db
+
+# define volume untuk menyimpan data database
+volumes:
+  app-db:
