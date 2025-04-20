@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -28,6 +30,9 @@ func (app *application) getJobs(w http.ResponseWriter, r *http.Request) {
 	data, err := app.jobs.GetJobPosts(context.Background())
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
+		log.Print(err)
+		fmt.Println("===============================")
+		fmt.Println(err)
 		return
 	}
 
